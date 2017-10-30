@@ -44,6 +44,13 @@
         return
       }
 
+      // msg with html
+      const textWithHtml = node.querySelector('._aok span b') || node.querySelector('._aok span i') || node.querySelector('._aok span s');
+      if (textWithHtml) {
+        msg.content.push({ type: 'textWithEmoticon', html: textWithHtml.parentNode.innerHTML })
+        return
+      }
+
       // msg with emoticon
       const textWithEmoticonNode = node.querySelector('._aok span span')
       if (textWithEmoticonNode) {
