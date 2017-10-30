@@ -12,7 +12,7 @@
     msg.author = node.innerText.split('\n')[0] === 'Adam'
       ? 'adam'
       : 'other'
-
+      
     node.querySelectorAll('.direction_ltr').forEach(node => {
 
       // voice message
@@ -31,9 +31,9 @@
       }
 
       // image
-      const imageNode = node.querySelector('[role=presentation] img')
+      const imageNode = node.querySelector('[role=presentation]')
       if (imageNode) {
-        msg.content.push({ type: 'image', src: imageNode.src })
+        msg.content.push({ type: 'image', src: imageNode.querySelector('img').src })
         return
       }
 
@@ -44,8 +44,8 @@
         return
       }
 
-      // msg with html
-      const textWithHtml = node.querySelector('._aok span b') || node.querySelector('._aok span i') || node.querySelector('._aok span s');
+      // msg with html (**bold** _italics_ ~strike~ <a>)
+      const textWithHtml = node.querySelector('._aok span b') || node.querySelector('._aok span i') || node.querySelector('._aok span s') || node.querySelector('._aok span a');
       if (textWithHtml) {
         msg.content.push({ type: 'textWithEmoticon', html: textWithHtml.parentNode.innerHTML })
         return
@@ -59,7 +59,7 @@
       }
 
       // pure text
-      msg.content.push({ type: 'text', html: node.innerHTML })
+      msg.content.push({ type: 'text', html: node.innerText })
     })
     msgs.push(msg)
   })
